@@ -55,9 +55,12 @@ def main():
     # This should be an option, but force sync for now
     task_sync = True
     if task_sync:
-        console = Console()
-        with console.status("Syncing tasks...", spinner="point"):
-            w.sync()
+        try:
+            console = Console()
+            with console.status("Syncing tasks...", spinner="point"):
+                w.sync()
+        except Exception as e:
+            print("Error syncing tasks")
 
 
 if __name__ == "__main__":
