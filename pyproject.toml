@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "taskloop"
-version = "0.2.0"
+version = "0.2.1"
 description = "Taskwarrior utility to continually loop through and add tasks to a project"
 authors = ["Alex Kelly <kellya@arachnitech.com>"]
 readme = "README.md"
