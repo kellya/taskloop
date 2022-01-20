@@ -47,13 +47,11 @@ def main():
                 config_filename="~/.config/task/taskrc"
             )
             if task_text.startswith("."):
-                print(task_id)
                 task_text = task_text[1:].lstrip()
                 task = w.task_add(task_text, project=project, dep=task_id)
             else:
                 task = w.task_add(task_text, project=project)
             task_id = task["id"]
-            print(f"Task: {task}")
     # This should be an option, but force sync for now
     task_sync = True
     if task_sync:
