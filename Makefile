@@ -31,6 +31,15 @@ pyflakes:
 pylint:
 	pylint ${PROJECT_BASE}
 
+semver:
+	semantic-release version
+
+changelog:
+	auto-changelog --tag-prefix v
+	git add CHANGELOG.md
+	git commit -m "Update changelog"
+	git push
+
 gh-release: build
 	#Figure out what the last/most recent build is
 	$(eval LATEST = $(shell ls -t1 ${BUILDDIR}/*|head -n1))
@@ -38,6 +47,6 @@ gh-release: build
 	@echo "Sending $(TAG) to github"
 	${GH} release create $(TAG) $(LATEST)
 
-release: poetry-release gh-release
+release: semver changelog poetry-release gh-release
 
 .PHONY: dir clean release gh-release poetry-release coverage
