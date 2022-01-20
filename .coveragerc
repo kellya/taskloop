@@ -1,0 +1,9 @@
+[run]
+source =
+    task_status
+omit =
+    */__init__.py
+
+[report]
+fail_under =
+    80
