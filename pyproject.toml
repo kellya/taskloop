@@ -3,6 +3,9 @@ name = "taskloop"
 version = "0.1.0"
 description = "Taskwarrior utility to continually loop through and add tasks to a project"
 authors = ["Alex Kelly <kellya@arachnitech.com>"]
+readme = "README.md"
+homepage = "https://github.com/kellya/taskloop"
+documentation = "https://taskloop.readthedocs.io"
 license = "MIT"
 
 [tool.poetry.dependencies]
