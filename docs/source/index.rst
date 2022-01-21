@@ -10,6 +10,10 @@ Welcome to taskloop's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   intro
+   install
+   appendix
+
 
 
 Indices and tables
