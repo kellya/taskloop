@@ -30,9 +30,12 @@ def main():
     """Main function."""
     # populate the autocomplete list from tasks
     project_completer = FuzzyWordCompleter(get_projects())
-    project = prompt(
-        "Which project? ", completer=project_completer, complete_while_typing=True
-    )
+    try:
+        project = prompt(
+            "Which project? ", completer=project_completer, complete_while_typing=True
+        )
+    except KeyboardInterrupt:
+        sys.exit(0)
     if project == "":
         # if the user hits enter, exit
         sys.exit(0)
