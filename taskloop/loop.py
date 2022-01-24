@@ -37,8 +37,14 @@ def get_projects(show_all=False):
     is_flag=True,
     help="Show all tasks, not just pending.",
 )
+@click.option(
+    "--sync/--nosync",
+    is_flag=True,
+    default=True,
+    help="Attempt to sync with taskserver after adding tasks.",
+)
 @click.argument("project", required=False)
-def main(project, show_all):
+def main(project, show_all, sync):
     """Main function."""
     # populate the autocomplete list from tasks
     project_completer = FuzzyWordCompleter(get_projects(show_all))
@@ -71,8 +77,7 @@ def main(project, show_all):
                 task = w.task_add(task_text, project=project)
             task_id = task["id"]
     # This should be an option, but force sync for now
-    task_sync = True
-    if task_sync:
+    if sync:
         try:
             console = Console()
             with console.status("Syncing tasks...", spinner="point"):
