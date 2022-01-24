@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.4.0 (2022-01-24)
+
+#### New Features
+
+* add option to enable/disable syncing
+* add project arguemnt and show_all
+#### Docs
+
+* add some basic documentation
+#### Others
+
+* handle ctrl-c gracefully
+
+Full set of changes: [`v0.3.0...v0.4.0`](https://github.com/kellya/taskloop/compare/v0.3.0...v0.4.0)
+
 ## v0.3.0 (2022-01-20)
 
 #### Docs
