@@ -5,11 +5,14 @@ from prompt_toolkit.completion import FuzzyWordCompleter
 from prompt_toolkit.shortcuts import prompt
 from taskw import TaskWarrior
 from rich.console import Console
+import click
+
+__version__ = "0.3.0"
 
 
 def get_projects(show_all=False):
     """Get a list of projects from taskwarrior."""
-    w = TaskWarrior( # pylint: disable=invalid-name
+    w = TaskWarrior(  # pylint: disable=invalid-name
         config_filename="~/.config/task/taskrc"
     )
     tasks = w.load_tasks()
@@ -26,27 +29,39 @@ def get_projects(show_all=False):
         pass
     return projects
 
-def main():
+
+@click.command()
+@click.version_option(__version__, prog_name="taskloop")
+@click.option(
+    "--show-all",
+    is_flag=True,
+    help="Show all tasks, not just pending.",
+)
+@click.argument("project", required=False)
+def main(project, show_all):
     """Main function."""
     # populate the autocomplete list from tasks
-    project_completer = FuzzyWordCompleter(get_projects())
-    try:
-        project = prompt(
-            "Which project? ", completer=project_completer, complete_while_typing=True
-        )
-    except KeyboardInterrupt:
-        sys.exit(0)
+    project_completer = FuzzyWordCompleter(get_projects(show_all))
+    if not project:
+        try:
+            project = prompt(
+                "Which project? ",
+                completer=project_completer,
+                complete_while_typing=True,
+            )
+        except KeyboardInterrupt:
+            sys.exit(0)
     if project == "":
         # if the user hits enter, exit
         sys.exit(0)
     print(f"Project: {project}")
 
-    task_text = None  #initialize var to None so while loop logic works
+    task_text = None  # initialize var to None so while loop logic works
     while task_text != "":
         # Blank line will end input loop
         task_text = prompt("Task: ")
         if task_text != "":
-            w = TaskWarrior( # pylint: disable=invalid-name
+            w = TaskWarrior(  # pylint: disable=invalid-name
                 config_filename="~/.config/task/taskrc"
             )
             if task_text.startswith("."):
@@ -62,9 +77,10 @@ def main():
             console = Console()
             with console.status("Syncing tasks...", spinner="point"):
                 w.sync()
-        except Exception as e:
+        except Exception as error:
             print("Error syncing tasks")
+            print(error)
 
 
 if __name__ == "__main__":
-    main()
+    main()  # pylint: disable=no-value-for-parameter
