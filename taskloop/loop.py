@@ -76,7 +76,6 @@ def main(project, show_all, sync):
             else:
                 task = w.task_add(task_text, project=project)
             task_id = task["id"]
-    # This should be an option, but force sync for now
     if sync:
         try:
             console = Console()
