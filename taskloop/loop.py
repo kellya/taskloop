@@ -7,7 +7,7 @@ from taskw import TaskWarrior
 from rich.console import Console
 import click
 
-__version__ = "0.4.0"
+__version__ = "0.4.1"
 
 
 def get_projects(show_all=True):
