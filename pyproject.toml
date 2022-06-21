@@ -35,5 +35,6 @@ taskloop = 'taskloop.loop:main'
 version_variable = [
     "pyproject.toml:version",
     "taskloop/__init__.py:__version__",
+    "taskloop/loop.py:__version__",
     "docs/source/conf.py:release"
 ]
