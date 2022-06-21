@@ -7,11 +7,12 @@ from taskw import TaskWarrior
 from rich.console import Console
 import click
 
-__version__ = "0.3.0"
+__version__ = "0.4.1"
 
 
-def get_projects(show_all=False):
+def get_projects(show_all=True):
     """Get a list of projects from taskwarrior."""
+    print(show_all)
     w = TaskWarrior(  # pylint: disable=invalid-name
         config_filename="~/.config/task/taskrc"
     )
@@ -21,6 +22,9 @@ def get_projects(show_all=False):
         for task in tasks["pending"]:
             if task["project"] not in projects:
                 projects.append(task["project"])
+    except KeyError:
+        pass
+    try:
         if show_all:
             for task in tasks["completed"]:
                 if task["project"] not in projects:
@@ -76,7 +80,6 @@ def main(project, show_all, sync):
             else:
                 task = w.task_add(task_text, project=project)
             task_id = task["id"]
-    # This should be an option, but force sync for now
     if sync:
         try:
             console = Console()
